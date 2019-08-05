@@ -71,8 +71,8 @@ messageStats['activeCount'] = activeCount
 stats.append(person_dict.copy())
 stats.append(messageStats.copy())
 
-with open('exportdata.json', 'w', encoding='utf-8') as f:
-    json.dump(stats, f, ensure_ascii=False, indent=4)
+with open('exportdata.json', 'w') as f:
+    json.dump(stats, f, indent=4)
 
 headers = ('Name', 'Message Count')
 statsXLS = tablib.Dataset()
@@ -80,14 +80,13 @@ for i in range(len(names)):
     statsXLS.append((
         str(person_dict[i]['name']), person_dict[i]['msgcount']
     ))
-
+statsXLS.sort(1)
 open('statsXLS.xls', 'wb').write(statsXLS.xls)
 
-#First message sent Epoch time 1420468791315
-timestamp = 1420468791315/1000.0
-data_first_msg = datetime.datetime.fromtimestamp(timestamp)
-print(data_first_msg)
+#Get first message timestamp
+#timestamp = epoch timestamp/1000.0
+#data_first_msg = datetime.datetime.fromtimestamp(timestamp)
+#print(data_first_msg)
 
 print("Dumped information into exportdata.json")
-
-# Rawdata\messages\inbox\BajerGruppen_ussDUFrNeA\message_1.json
+print("Dumped dataset into statsXLS.xls")
